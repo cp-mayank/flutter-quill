@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart' show showCupertinoModalPopup;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart'
-    show ImageUrl, QuillController, StyleAttribute, getEmbedNode;
+    show ImageUrl, QuillController, getEmbedNode;
 import 'package:flutter_quill/translations.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 
@@ -10,10 +9,8 @@ import '../../../models/config/image/editor/image_configurations.dart';
 import '../../../models/config/shared_configurations.dart';
 import '../../../services/image_saver/s_image_saver.dart';
 import '../../../utils/element_utils/element_utils.dart';
-import '../../../utils/string.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/image.dart' show ImageTapWrapper, getImageStyleString;
-import '../../widgets/image_resizer.dart' show ImageResizer;
 
 class ImageOptionsMenu extends StatelessWidget {
   const ImageOptionsMenu({
