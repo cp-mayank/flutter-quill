@@ -41,47 +41,47 @@ class ImageOptionsMenu extends StatelessWidget {
       child: SimpleDialog(
         title: Text(context.loc.image),
         children: [
-          if (!isReadOnly)
-            ListTile(
-              title: Text(context.loc.resize),
-              leading: const Icon(Icons.settings_outlined),
-              onTap: () {
-                Navigator.pop(context);
-                showCupertinoModalPopup<void>(
-                  context: context,
-                  builder: (modalContext) {
-                    final screenSize = MediaQuery.sizeOf(modalContext);
-                    return FlutterQuillLocalizationsWidget(
-                      child: ImageResizer(
-                        onImageResize: (width, height) {
-                          final res = getEmbedNode(
-                            controller,
-                            controller.selection.start,
-                          );
-
-                          final attr = replaceStyleStringWithSize(
-                            getImageStyleString(controller),
-                            width: width,
-                            height: height,
-                          );
-                          controller
-                            ..skipRequestKeyboard = true
-                            ..formatText(
-                              res.offset,
-                              1,
-                              StyleAttribute(attr),
-                            );
-                        },
-                        imageWidth: imageSize.width,
-                        imageHeight: imageSize.height,
-                        maxWidth: screenSize.width,
-                        maxHeight: screenSize.height,
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+          // if (!isReadOnly)
+          //   ListTile(
+          //     title: Text(context.loc.resize),
+          //     leading: const Icon(Icons.settings_outlined),
+          //     onTap: () {
+          //       Navigator.pop(context);
+          //       showCupertinoModalPopup<void>(
+          //         context: context,
+          //         builder: (modalContext) {
+          //           final screenSize = MediaQuery.sizeOf(modalContext);
+          //           return FlutterQuillLocalizationsWidget(
+          //             child: ImageResizer(
+          //               onImageResize: (width, height) {
+          //                 final res = getEmbedNode(
+          //                   controller,
+          //                   controller.selection.start,
+          //                 );
+          //
+          //                 final attr = replaceStyleStringWithSize(
+          //                   getImageStyleString(controller),
+          //                   width: width,
+          //                   height: height,
+          //                 );
+          //                 controller
+          //                   ..skipRequestKeyboard = true
+          //                   ..formatText(
+          //                     res.offset,
+          //                     1,
+          //                     StyleAttribute(attr),
+          //                   );
+          //               },
+          //               imageWidth: imageSize.width,
+          //               imageHeight: imageSize.height,
+          //               maxWidth: screenSize.width,
+          //               maxHeight: screenSize.height,
+          //             ),
+          //           );
+          //         },
+          //       );
+          //     },
+          //   ),
           ListTile(
             leading: const Icon(Icons.copy_all_outlined),
             title: Text(context.loc.copy),

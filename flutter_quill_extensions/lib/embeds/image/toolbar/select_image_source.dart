@@ -32,14 +32,6 @@ class SelectImageSourceDialog extends StatelessWidget {
               enabled: !isDesktop(supportWeb: false),
               onTap: () => Navigator.of(context).pop(InsertImageSource.camera),
             ),
-            ListTile(
-              title: Text(context.loc.link),
-              subtitle: Text(
-                context.loc.pasteAPhotoUsingALink,
-              ),
-              leading: const Icon(Icons.link),
-              onTap: () => Navigator.of(context).pop(InsertImageSource.link),
-            ),
           ],
         ),
       ),
@@ -53,6 +45,7 @@ Future<InsertImageSource?> showSelectImageSourceDialog({
   final imageSource = await showModalBottomSheet<InsertImageSource>(
     showDragHandle: true,
     context: context,
+    useSafeArea: true,
     constraints: const BoxConstraints(maxWidth: 640),
     builder: (_) => const FlutterQuillLocalizationsWidget(
       child: SelectImageSourceDialog(),

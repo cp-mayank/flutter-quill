@@ -70,6 +70,7 @@ Image getImageWidgetByImageSource(
   required String assetsPrefix,
   double? width,
   double? height,
+  BoxFit fit = BoxFit.contain,
   AlignmentGeometry alignment = Alignment.center,
 }) {
   return Image(
@@ -81,6 +82,7 @@ Image getImageWidgetByImageSource(
     ),
     width: width,
     height: height,
+    fit: fit,
     alignment: alignment,
     errorBuilder: imageErrorWidgetBuilder,
   );
