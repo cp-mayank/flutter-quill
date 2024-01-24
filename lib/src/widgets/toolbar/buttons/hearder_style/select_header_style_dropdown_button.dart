@@ -27,6 +27,7 @@ class _QuillToolbarSelectHeaderStyleDropdownButtonState
   Attribute<dynamic> _selectedItem = Attribute.header;
 
   final _menuController = MenuController();
+
   @override
   void initState() {
     super.initState();
@@ -76,14 +77,13 @@ class _QuillToolbarSelectHeaderStyleDropdownButtonState
 
   String _label(Attribute<dynamic> value) {
     final label = switch (value) {
-      Attribute.h1 => context.loc.heading1,
-      Attribute.h2 => context.loc.heading2,
-      Attribute.h3 => context.loc.heading3,
-      Attribute.h4 => context.loc.heading4,
-      Attribute.h5 => context.loc.heading5,
-      Attribute.h6 => context.loc.heading6,
-      Attribute.header =>
-        widget.options.defaultDisplayText ?? context.loc.normal,
+      Attribute.h1 => 'H1',
+      Attribute.h2 => 'H2',
+      Attribute.h3 => 'H3',
+      Attribute.h4 => 'H4',
+      Attribute.h5 => 'H5',
+      Attribute.h6 => 'H6',
+      Attribute.header => widget.options.defaultDisplayText ?? 'N',
       Attribute<dynamic>() => throw ArgumentError(),
     };
     return label;
@@ -113,6 +113,7 @@ class _QuillToolbarSelectHeaderStyleDropdownButtonState
           Attribute.h1,
           Attribute.h2,
           Attribute.h3,
+          Attribute.h4,
           Attribute.header,
         ];
   }
@@ -155,63 +156,76 @@ class _QuillToolbarSelectHeaderStyleDropdownButtonState
         ),
       );
     }
-
-    return MenuAnchor(
-      controller: _menuController,
-      menuChildren: headerAttributes
+    return PopupMenuButton(
+      surfaceTintColor: Theme.of(context).colorScheme.surface,
+      position: PopupMenuPosition.under,
+      icon: Text(
+        _label(_selectedItem),
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      itemBuilder: (context) => headerAttributes
           .map(
-            (e) => MenuItemButton(
-              onPressed: () {
-                _onPressed(e);
-              },
-              child: Text(_label(e)),
-            ),
+            (e) => PopupMenuItem(
+                onTap: () => _onPressed(e), child: Text(_label(e))),
           )
           .toList(),
-      child: Builder(
-        builder: (context) {
-          final isMaterial3 = Theme.of(context).useMaterial3;
-          final child = Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                _label(_selectedItem),
-                style: widget.options.textStyle ??
-                    TextStyle(
-                      fontSize: iconSize / 1.15,
-                    ),
-              ),
-              Icon(
-                Icons.arrow_drop_down,
-                size: iconSize * iconButtonFactor,
-              ),
-            ],
-          );
-          if (!isMaterial3) {
-            return RawMaterialButton(
-              onPressed: _onDropdownButtonPressed,
-              child: child,
-            );
-          }
-          return QuillToolbarIconButton(
-            onPressed: _onDropdownButtonPressed,
-            icon: child,
-            isSelected: false,
-            iconTheme: iconTheme,
-            tooltip: tooltip,
-          );
-        },
-      ),
     );
+    // return MenuAnchor(
+    //   controller: _menuController,
+    //   menuChildren: headerAttributes
+    //       .map(
+    //         (e) => MenuItemButton(
+    //           onPressed: () {
+    //             _onPressed(e);
+    //           },
+    //           child: Text(_label(e)),
+    //         ),
+    //       )
+    //       .toList(),
+    //   child: Builder(
+    //     builder: (context) {
+    //       final isMaterial3 = Theme.of(context).useMaterial3;
+    //       final child = Row(
+    //         mainAxisSize: MainAxisSize.min,
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: [
+    //           Text(
+    //             _label(_selectedItem),
+    //             style: widget.options.textStyle ??
+    //                 TextStyle(
+    //                   fontSize: iconSize / 1.15,
+    //                 ),
+    //           ),
+    //           Icon(
+    //             Icons.arrow_drop_down,
+    //             size: iconSize * iconButtonFactor,
+    //           ),
+    //         ],
+    //       );
+    //       if (!isMaterial3) {
+    //         return RawMaterialButton(
+    //           onPressed: _onDropdownButtonPressed,
+    //           child: child,
+    //         );
+    //       }
+    //       return QuillToolbarIconButton(
+    //         onPressed: _onDropdownButtonPressed,
+    //         icon: child,
+    //         isSelected: false,
+    //         iconTheme: iconTheme,
+    //         tooltip: tooltip,
+    //       );
+    //     },
+    //   ),
+    // );
   }
 
-  void _onDropdownButtonPressed() {
-    if (_menuController.isOpen) {
-      _menuController.close();
-    } else {
-      _menuController.open();
-    }
-    afterButtonPressed?.call();
-  }
+  // void _onDropdownButtonPressed() {
+  //   if (_menuController.isOpen) {
+  //     _menuController.close();
+  //   } else {
+  //     _menuController.open();
+  //   }
+  //   afterButtonPressed?.call();
+  // }
 }
